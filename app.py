@@ -1,22 +1,13 @@
 import streamlit as st
 import pandas as pd
+import altair as alt
+from scoring import calculate_csv_scores, calculate_survey_score
 
-st.title("InkluScore Prototype")
-st.write("Testing a simple scoring framework for digital inclusion.")
+# --- APP SETTINGS ---
+st.set_page_config(page_title="IncluScore Prototype", layout="wide")
 
-# File uploader
-uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
-
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.write("### Raw Data Preview")
-    st.dataframe(df)
-
-    import streamlit as st
-
-# --- APP TITLE ---
-st.set_page_config(page_title="InkluScore Prototype", layout="wide")
-st.title("🌍 InkluScore Prototype")
+# --- TITLE ---
+st.title("🌍 IncluScore Prototype")
 st.write("A simple framework to explore digital inclusion scoring.")
 
 # --- SIDEBAR ---
@@ -25,7 +16,7 @@ page = st.sidebar.radio("Go to", ["Home", "Upload & Score", "Dashboard", "Survey
 
 # --- HOME PAGE ---
 if page == "Home":
-    st.header("Welcome 👋")
+    st.header("Hey There! 👋")
     st.write("""
         This is a prototype app for testing digital inclusion scoring.
         You can:
@@ -38,20 +29,64 @@ if page == "Home":
 # --- UPLOAD & SCORE PAGE ---
 elif page == "Upload & Score":
     st.header("📂 Upload Your Data")
-    st.write("Upload a CSV file to calculate and view scores.")
+    st.write("Upload a CSV file with columns: Accessibility, Affordability, Safety.")
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+
+    if uploaded_file is not None:
+        try:
+            df = pd.read_csv(uploaded_file)
+            st.write("### Raw Data Preview")
+            st.dataframe(df)
+
+            # Calculate scores
+            scored_df = calculate_csv_scores(df)
+            st.write("### Scored Data")
+            st.dataframe(scored_df)
+
+            # Save results in session state for dashboard use
+            st.session_state["scored_df"] = scored_df
+
+        except Exception as e:
+            st.error(f"Error processing file: {e}")
 
 # --- DASHBOARD PAGE ---
 elif page == "Dashboard":
     st.header("📊 Dashboard")
-    st.write("Visualize the results here (charts & tables coming soon).")
+    if "scored_df" in st.session_state:
+        scored_df = st.session_state["scored_df"]
+
+        st.write("### Average IncluScore")
+        avg_score = scored_df["IncluScore"].mean()
+        st.metric("Overall Average", f"{avg_score:.2f}")
+
+        st.write("### Score Distribution")
+        chart = (
+            alt.Chart(scored_df)
+            .mark_bar()
+            .encode(
+                x=alt.X("IncluScore:Q", bin=alt.Bin(maxbins=10)),
+                y="count()",
+                tooltip=["count()"]
+            )
+        )
+        st.altair_chart(chart, use_container_width=True)
+    else:
+        st.warning("Please upload data first in the 'Upload & Score' page.")
 
 # --- SURVEY PAGE ---
 elif page == "Survey":
     st.header("📝 Survey")
-    st.write("A simple survey experiment will go here.")
+    st.write("Answer the questions to generate your IncluScore.")
 
-    # --- FOOTER ---
+    accessibility = st.slider("Accessibility (0–10)", 0, 10, 5)
+    affordability = st.slider("Affordability (0–10)", 0, 10, 5)
+    safety = st.slider("Safety (0–10)", 0, 10, 5)
+
+    if st.button("Calculate My Score"):
+        score = calculate_survey_score(accessibility, affordability, safety)
+        st.success(f"Your IncluScore is: {score}")
+
+# --- FOOTER ---
 st.markdown("---")
 st.markdown(
     """
@@ -60,4 +95,3 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
