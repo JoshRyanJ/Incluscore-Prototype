@@ -409,13 +409,13 @@ elif page == "Dashboard":
         df = st.session_state["scored_df"]
 
         # Summary metrics
-        avg = df["IncluScore"].mean()
-        top = df["IncluScore"].max()
-        bot = df["IncluScore"].min()
+        avg = df["InkluScore"].mean()
+        top = df["InkluScore"].max()
+        bot = df["InkluScore"].min()
 
         m1, m2, m3, m4 = st.columns(4)
         m1.metric("Platforms Evaluated", len(df))
-        m2.metric("Average IncluScore", f"{avg:.1f}")
+        m2.metric("Average InkluScore", f"{avg:.1f}")
         m3.metric("Highest Score", f"{top:.1f}")
         m4.metric("Lowest Score", f"{bot:.1f}")
 
@@ -465,7 +465,7 @@ elif page == "Dashboard":
 
         m1, m2, m3, m4 = st.columns(4)
         m1.metric("Platform", name)
-        m2.metric("IncluScore", f"{result['composite_score']:.1f}")
+        m2.metric("InkluScore", f"{result['composite_score']:.1f}")
         m3.metric("Verdict", result["verdict"].split(" — ")[0])
         m4.metric("Criteria Evaluated", "23")
 
