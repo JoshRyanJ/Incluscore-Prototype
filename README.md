@@ -1,91 +1,68 @@
-# IncluScore AI
+# IncluScore
 
- An open-source Digital Inclusion Scorecard for evaluating EdTech tools — built in Ghana, aligned with UN SDGs.
+### The first child-centered digital inclusion assessment platform built for schools in the Global South.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Standard: WCAG 2.1](https://img.shields.io/badge/Standard-WCAG%202.1-blue.svg)](https://www.w3.org/WAI/WCAG21/quickref/)
+[![SDG 4](https://img.shields.io/badge/SDG-4%20Quality%20Education-red.svg)](https://sdgs.un.org/goals/goal4)
+[![Status: Prototype](https://img.shields.io/badge/Status-Prototype-orange.svg)](https://github.com/JoshRyanJ/Incluscore-Prototype)
 
 **Live demo:** [incluscore-ai.streamlit.app](https://incluscore-ai.streamlit.app) · **Landing page:** [incluscoreai.netlify.app](https://incluscoreai.netlify.app)
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-teal.svg)](LICENSE)
-[![Standard: WCAG 2.1](https://img.shields.io/badge/Standard-WCAG%202.1%20AA-blue)](https://www.w3.org/WAI/WCAG21/quickref/)
-[![SDG 4](https://img.shields.io/badge/SDG-4%20Quality%20Education-red)](https://sdgs.un.org/goals/goal4)
-[![Status: Prototype](https://img.shields.io/badge/Status-Active%20Prototype-gold)]()
 
 ---
 
 ## The Problem
 
-Schools across Ghana and the Global South are adopting digital learning tools fast — without any standard way to evaluate whether those tools are safe, accessible, or fair for every child. Children with learning disabilities, learners in low-bandwidth environments, and students from low-income schools are disproportionately excluded by platforms that were never designed with them in mind.
+Schools across Ghana and the Global South are adopting digital tools faster than anyone is asking whether those tools are safe, accessible or fair for the children using them.
 
-Existing "inclusion score" tools measure workplace diversity inside corporations. None address whether EdTech platforms meet child safety, accessibility, or equity standards — particularly in Global South contexts. IncluScore AI fills that gap.
+A platform that works perfectly for a child on fiber internet in Accra performs entirely differently for a child on mobile data in Tamale. A tool that collects personal data from children without transparent consent doesn't stop doing so just because the school had no better option. Children with disabilities, learners in low-bandwidth environments and students from low-income schools are disproportionately excluded by platforms that were never designed with them in mind.
 
-> IncluScore AI is an independent open-source project and is not affiliated with any similarly named commercial products.
+Existing inclusion tools measure workplace diversity inside corporations. None address whether EdTech platforms meet child safety, accessibility or equity standards. Particularly in Global South contexts.
 
----
-
-## What It Does
-
-IncluScore AI evaluates digital learning platforms across three pillars:
-
-| Pillar | Standard | Weight |
-|---|---|---|
- Accessibility | WCAG 2.1 AA | 40% |
-| Child Safety | UNICEF CRC / COPPA / GDPR-K / EU AI Act | 35% |
-| Equity & Inclusion | UDL (CAST) + SDG 4 | 25% |
-
-Every score is traceable to a specific international standard — not a number pulled from nowhere, but a defensible verdict schools and policymakers can act on.
+IncluScore fills that gap.
 
 ---
 
-## Scoring Framework
+## Why Context Matters
 
-### Accessibility (WCAG 2.1)
+Most evaluation frameworks produce one universal score regardless of where a child is learning or what device they are using. IncluScore does not.
 
-| Criterion | Standard | Weight |
+Before any assessment begins, the evaluator defines their school's context:
+
+- **School type** — government, private, international
+- **Primary student device** — smartphone, tablet, shared computer
+- **Typical connectivity** — reliable WiFi, mobile data, limited or none
+
+Truthfully, the same platform can score differently across different contexts. A tool that scores High Inclusion for a well-resourced private school in East Legon may score Low Inclusion for a rural government school in the Upper East Region. IncluScore reflects that reality honestly.
+
+## What IncluScore Does
+
+IncluScore enables school administrators and procurement officers to evaluate any digital learning platform across three core pillars — **Accessibility, Child Safety and Equity**  through observable, context-aware criteria that produce a defensible, actionable verdict.
+
+The output is not just a score but a clear report that tells a decision maker:
+- How inclusive the platform is for their specific school context
+- The top risks identified across all three pillars
+- Concrete recommendations they can act on immediately
+
+## The Three Pillars
+
+| Pillar | What It Evaluates | Weight |
 |---|---|---|
-| Text alternatives for non-text content | WCAG 1.1.1 | 15% |
-| Captions for audio and video | WCAG 1.2.2 | 10% |
-| Text contrast ratio 4.5:1 minimum | WCAG 1.4.3 | 12% |
-| Text resizable to 200% without loss | WCAG 1.4.4 | 8% |
-| Full keyboard accessibility | WCAG 2.1.1 | 18% |
-| No content flashing more than 3x/second | WCAG 2.3.1 | 7% |
-| Page language programmatically identified | WCAG 3.1.1 | 10% |
-| Input errors identified and described | WCAG 3.3.1 | 10% |
-| Compatible with major screen readers | WCAG 4.1.2 | 10% |
+| **Accessibility** | Can every child use this platform regardless of device, connectivity, ability or language? | 40% |
+| **Child Safety** | Does this platform handle children's data responsibly, transparently and in compliance with applicable frameworks? | 35% |
+| **Equity & Inclusion** | Does this platform assume resources, infrastructure or prior digital experience that many children in the Global South simply do not have? | 25% |
 
-### Child Safety
+> Full scoring criteria, weighted sub-questions and standard mappings — [view SCORING.md](./SCORING.md)
 
-| Criterion | Standard | Weight |
-|---|---|---|
-| Data minimization | GDPR-K / COPPA | 20% |
-| Verifiable parental consent | COPPA Art.5 | 18% |
-| Child data encrypted in transit and at rest | GDPR Art.32 | 15% |
-| Effective content moderation | UNICEF CRC Art.17 | 15% |
-| Age-appropriate content and interface | UNICEF Digital Rights | 12% |
-| No manipulative dark patterns | EU AI Act Art.5 | 10% |
-| No unsupervised messaging between unknown users | UNICEF CRC Art.19 | 10% |
-
-### Equity & Inclusion (UDL + SDG 4)
-
-| Criterion | Standard | Weight |
-|---|---|---|
-| Content in multiple formats | UDL Guideline 1 | 18% |
-| Multilingual or home language support | UDL Guideline 2 | 15% |
-| Multiple input types accepted | UDL Guideline 4 | 12% |
-| Self-paced and learner-directed | UDL Guideline 7 | 12% |
-| Functions on low-bandwidth connections | SDG 4 / ITU | 18% |
-| Works on low-cost and older devices | SDG 4 | 13% |
-| Free tier or affordable pricing | SDG 4.1 | 12% |
-
-### Score Thresholds
+## Score Thresholds
 
 | Score | Verdict |
 |---|---|
-| 85–100 | High Inclusion — Meets standards across all pillars |
-| 70–84 | Good Inclusion — Minor improvements recommended |
-| 50–69 | Moderate Inclusion — Significant gaps identified |
-| 30–49 | Low Inclusion — Major barriers present |
-| 0–29 | Critical Failure — Not recommended for child use |
-
----
+| 85–100 | **High Inclusion** — Meets standards across all pillars |
+| 70–84 | **Good Inclusion** — Minor improvements recommended |
+| 50–69 | **Moderate Inclusion** — Significant gaps identified |
+| 30–49 | **Low Inclusion** — Major barriers present |
+| 0–29 | **Critical Failure** — Not recommended for child use |
 
 ## Getting Started
 
@@ -123,36 +100,56 @@ Incluscore-Prototype/
 ├── sample_data.csv         # Full 23-column sample data
 ├── sample_data_simple.csv  # Simplified 3-column sample
 ├── requirements.txt        # Dependencies
+├── SCORING.md              # Full criteria, weights and standard mappings
 └── README.md
 ```
 
----
 
-## Standards Referenced
+## International Standards
+
+These standards do not lead the evaluation — they validate it. Every criterion in IncluScore is grounded in observable, real-world questions relevant to Global South schools. The frameworks below are the evidence base that makes each criterion defensible to policymakers, funders and academic reviewers.
 
 | Standard | Body | Relevance |
 |---|---|---|
 | WCAG 2.1 AA | W3C / WAI | Accessibility for users with disabilities |
+| Ghana Data Protection Act 2012 | Republic of Ghana | Local child data protection |
 | UDL Guidelines | CAST | Inclusive learning design |
 | COPPA | US FTC | Children's online privacy |
 | GDPR-K | EU | Child data protection |
 | UNICEF CRC | United Nations | Convention on the Rights of the Child |
 | UNESCO AI Ethics 2021 | UNESCO | AI in education |
-| EU AI Act (2024) | EU | High-risk AI in education |
+| EU AI Act 2024 | EU | High-risk AI in education |
 | SDG 4 | United Nations | Quality Education for All |
-
----
 
 ## Roadmap
 
 - [x] Weighted scoring engine — 23 criteria across 3 pillars
 - [x] CSV and survey input modes
 - [x] Live Streamlit prototype
-- [ ] PDF report generation for school procurement officers
-- [ ] Automated WCAG checks via accessibility API
-- [ ] Pilot evaluation of EdTech tools used in Ghanaian schools
-- [ ] Framework validation with educators and child-safety advocates
+- [ ] Context-aware scoring calibration by school type and connectivity
+- [ ] Automated privacy policy analysis cross-referenced against Ghana's Data Protection Act
+- [ ] One-page actionable report output for school procurement officers
+- [ ] PDF report generation
+- [ ] Pilot evaluation with schools in Ghana
+- [ ] Framework validation with educators and child safety advocates
 - [ ] Public API for school procurement workflows
+
 ---
 
-*IncluScore AI is an active prototype. Contributions, feedback, and partnership inquiries are welcome.*
+## Built By
+
+**Josiah Ryan** — Software Engineering student, founder of [NoteWorthy Holdings](https://noteworthyholdings.netlify.app), and builder at the intersection of AI, education equity and child safety in the Global South.
+
+Built in Ghana. For the Global South.
+
+*IncluScore is an independent open source project and is not affiliated with any similarly named commercial products.*
+
+## Contributing
+
+IncluScore is open source and welcomes contributions from educators, researchers, developers and policy practitioners working in digital inclusion and EdTech accountability. Feedback, issues and pull requests are welcome.
+
+## Contact
+
+**GitHub:** [JoshRyanJ](https://github.com/JoshRyanJ)
+**Medium:** [@josiahmail21](https://medium.com/@josiahmail21)
+**LinkedIn:** [Josiah Ryan](https://linkedin.com/in/josiah-ryan-o-)
